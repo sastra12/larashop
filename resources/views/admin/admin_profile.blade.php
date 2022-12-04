@@ -108,7 +108,18 @@
                                         <h6 class="mb-0">Photo</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <input type="file" class="form-control" value="">
+                                        <input type="file" class="form-control" id="image">
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0"></h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        <img id="showImage"
+                                            src="{{ !empty($data->photo) ? url('upload/admin_images/' . $data->photo) : url('upload/no_image.jpg') }}"
+                                            alt="Admin" style="width: 100px; height: 100px;">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -124,4 +135,16 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#image").change(function(e) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#showImage').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(e.target.files['0']);
+            })
+        })
+    </script>
 @endsection
