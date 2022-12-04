@@ -24,8 +24,10 @@ Route::get('/dashboard', function () {
 
 require __DIR__ . '/auth.php';
 
+// Admin
 Route::middleware(['auth', 'checkrole:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
+    Route::get('/admin/profile', [AdminController::class, 'adminprofile'])->name('admin.profile');
     Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 });
 
