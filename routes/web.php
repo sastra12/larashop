@@ -36,6 +36,8 @@ Route::middleware(['auth', 'checkrole:admin'])->group(function () {
 
 Route::middleware(['auth', 'checkrole:vendor'])->group(function () {
     Route::get('/vendor/dashboard', [VendorController::class, 'VendorDashboard'])->name('vendor.dashboard');
+    Route::post('/vendor/logout', [VendorController::class, 'logout'])->name('vendor.logout');
 });
 
-Route::get('/admin/login', [AdminController::class, 'login']);
+Route::get('/admin/login', [AdminController::class, 'login'])->name('admin.login');
+Route::get('/vendor/login', [VendorController::class, 'login'])->name('vendor.login');
