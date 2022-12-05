@@ -29,6 +29,8 @@ Route::middleware(['auth', 'checkrole:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
     Route::get('/admin/profile', [AdminController::class, 'adminprofile'])->name('admin.profile');
     Route::post('/admin/profile', [AdminController::class, 'adminupdate'])->name('adminprofile.update');
+    Route::get('/admin/updatepassword', [AdminController::class, 'changepassword'])->name('change.password');
+    Route::post('/admin/updatepassword', [AdminController::class, 'updatepassword'])->name('update.password');
     Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 });
 
