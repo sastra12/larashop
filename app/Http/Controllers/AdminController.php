@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class AdminController extends Controller
 {
@@ -24,6 +25,26 @@ class AdminController extends Controller
         $id = Auth::user()->id;
         $data = User::findOrFail($id);
         return view('admin.admin_profile', compact('data'));
+    }
+
+    public function adminupdate(Request $request)
+    {
+        $id = $request->id;
+        $data = User::findOrFail($id);
+        $data->name = $request->name;
+        $data->email = $request->email;
+        $data->phone = $request->phone;
+        $data->address = $request->address;
+
+        if ($request->hasFile('photo')) {
+            File::delete(public_path('upload/admin_images/' . $data->photo));
+            $file = $request->file('photo');
+            $filename = date('YmdHi') . '-' . $file->getClientOriginalName();
+            $file->move(public_path('upload/admin_images'), $filename);
+            $data['photo'] = $filename;
+        }
+        $data->save();
+        return redirect()->back();
     }
 
     public function logout(Request $request)

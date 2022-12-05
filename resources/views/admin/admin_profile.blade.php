@@ -63,71 +63,81 @@
                     <div class="col-lg-8">
                         <div class="card">
                             <div class="card-body">
-                                <div class="row mb-3">
-                                    <div class="col-sm-3">
-                                        <h6 class="mb-0">User Name</h6>
+                                <form action="{{ route('adminprofile.update') }}" method="post"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{ $data->id }}">
+                                    <div class="row mb-3">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">User Name</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <input type="text" class="form-control" value="{{ $data->username }}"
+                                                disabled>
+                                        </div>
                                     </div>
-                                    <div class="col-sm-9 text-secondary">
-                                        <input type="text" class="form-control" value="{{ $data->username }}" disabled>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Full Name</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <input type="text" name="name" class="form-control"
+                                                value="{{ $data->name }}">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-sm-3">
-                                        <h6 class="mb-0">Full Name</h6>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Email</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <input type="email" name="email" class="form-control"
+                                                value="{{ $data->email }}">
+                                        </div>
                                     </div>
-                                    <div class="col-sm-9 text-secondary">
-                                        <input type="text" class="form-control" value="{{ $data->name }}">
+                                    <div class="row mb-3">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Phone</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <input type="text" name="phone" class="form-control"
+                                                value="{{ $data->phone }}">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-sm-3">
-                                        <h6 class="mb-0">Email</h6>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Address</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <input type="text" name="address" class="form-control"
+                                                value="{{ $data->address }}">
+                                        </div>
                                     </div>
-                                    <div class="col-sm-9 text-secondary">
-                                        <input type="text" class="form-control" value="{{ $data->email }}">
+                                    <div class="row mb-3">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Photo</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <input type="file" name="photo" class="form-control" id="image">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-sm-3">
-                                        <h6 class="mb-0">Phone</h6>
-                                    </div>
-                                    <div class="col-sm-9 text-secondary">
-                                        <input type="text" class="form-control" value="{{ $data->phone }}">
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-sm-3">
-                                        <h6 class="mb-0">Address</h6>
-                                    </div>
-                                    <div class="col-sm-9 text-secondary">
-                                        <input type="text" class="form-control" value="{{ $data->address }}">
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-sm-3">
-                                        <h6 class="mb-0">Photo</h6>
-                                    </div>
-                                    <div class="col-sm-9 text-secondary">
-                                        <input type="file" class="form-control" id="image">
-                                    </div>
-                                </div>
 
-                                <div class="row mb-3">
-                                    <div class="col-sm-3">
-                                        <h6 class="mb-0"></h6>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0"></h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <img id="showImage"
+                                                src="{{ !empty($data->photo) ? url('upload/admin_images/' . $data->photo) : url('upload/no_image.jpg') }}"
+                                                alt="Admin" style="width: 100px; height: 100px;">
+                                        </div>
                                     </div>
-                                    <div class="col-sm-9 text-secondary">
-                                        <img id="showImage"
-                                            src="{{ !empty($data->photo) ? url('upload/admin_images/' . $data->photo) : url('upload/no_image.jpg') }}"
-                                            alt="Admin" style="width: 100px; height: 100px;">
+                                    <div class="row">
+                                        <div class="col-sm-3"></div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <input type="submit" class="btn btn-primary px-4" value="Save Changes">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-3"></div>
-                                    <div class="col-sm-9 text-secondary">
-                                        <input type="button" class="btn btn-primary px-4" value="Save Changes">
-                                    </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
