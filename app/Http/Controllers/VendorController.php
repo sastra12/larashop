@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
+
 
 class VendorController extends Controller
 {
@@ -30,6 +32,12 @@ class VendorController extends Controller
 
     public function vendorupdate(Request $request)
     {
+
+        $request->validate([
+            'email' => 'required', 'string', 'email',
+            'phone' => 'regex:/^([0-9\s\-\+\(\)]*)$/|min:10'
+        ]);
+
         $id = $request->id;
         $data = User::findOrFail($id);
         $data->name = $request->name;
@@ -52,6 +60,29 @@ class VendorController extends Controller
         ];
         return redirect()->back()->with($notification);
     }
+
+    public function changepassword()
+    {
+        return view('vendor.vendor_change_password');
+    }
+
+    public function updatepassword(Request $request)
+    {
+        $request->validate([
+            'old_password' => 'required',
+            'password' => 'required|confirmed'
+        ]);
+
+        if (Hash::check($request->old_password, Auth::user()->password)) {
+            User::where('id', Auth::user()->id)->update([
+                'password' => Hash::make($request->password)
+            ]);
+            return back()->with("success", "Password Changed Successfully");
+        } else {
+            return back()->with("error", "Old Password Doesn't Match!!");
+        }
+    }
+
 
     public function logout(Request $request)
     {
