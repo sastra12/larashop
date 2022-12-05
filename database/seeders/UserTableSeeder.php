@@ -34,6 +34,7 @@ class UserTableSeeder extends Seeder
                 'password' => Hash::make('vendor'),
                 'role' => 'vendor',
                 'status' => 'active',
+
             ],
             // User
             [
