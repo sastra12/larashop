@@ -15,7 +15,7 @@ use App\Http\Controllers\VendorController;
 */
 
 Route::get('/', function () {
-    return view('frontend.master');
+    return view('frontend.index');
 });
 
 Route::get('/dashboard', function () {
