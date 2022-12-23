@@ -18,8 +18,6 @@
 </head>
 
 <body>
-
-
     <!-- Header  -->
     @include('frontend.partials.header')
     <!-- End Header  -->
