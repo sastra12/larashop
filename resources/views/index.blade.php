@@ -57,6 +57,9 @@
                                     <div class="card">
                                         <div class="card-header">
                                             <h3 class="mb-0">Hello {{ Auth::user()->name }}</h3>
+                                            <img id="showImage"
+                                                src="{{ !empty($data->photo) ? url('upload/user_images/' . $data->photo) : url('upload/no_image.jpg') }}"
+                                                alt="User" style="width: 100px; height: 100px;">
                                         </div>
                                         <div class="card-body">
                                             <p>
@@ -189,7 +192,10 @@
                                             <h5>Account Details</h5>
                                         </div>
                                         <div class="card-body">
-                                            <form method="post" name="enq">
+                                            <form action="{{ route('userprofile.update') }}" method="post"
+                                                enctype="multipart/form-data">
+                                                @csrf
+                                                <input type="hidden" name="id" value="{{ $data->id }}">
                                                 <div class="row">
                                                     <div class="form-group col-md-12">
                                                         <label>User Name <span class="required">*</span></label>
@@ -198,7 +204,7 @@
                                                     </div>
                                                     <div class="form-group col-md-12">
                                                         <label>Full Name <span class="required">*</span></label>
-                                                        <input class="form-control" type="text" name="fullname"
+                                                        <input class="form-control" type="text" name="name"
                                                             value="{{ $data->name }}" />
                                                     </div>
                                                     <div class="form-group col-md-12">
@@ -208,7 +214,7 @@
                                                     </div>
                                                     <div class="form-group col-md-12">
                                                         <label>Phone <span class="required">*</span></label>
-                                                        <input class="form-control" name="email" type="number"
+                                                        <input class="form-control" name="phone" type="number"
                                                             value="{{ $data->phone }}" />
                                                     </div>
                                                     <div class="form-group col-md-12">

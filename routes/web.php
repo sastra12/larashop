@@ -23,6 +23,7 @@ Route::get('/', function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
+    Route::post('/user/profile', [UserController::class, 'userupdate'])->name('userprofile.update');
 });
 
 require __DIR__ . '/auth.php';
