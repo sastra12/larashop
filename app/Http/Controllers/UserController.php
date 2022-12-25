@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -10,7 +12,8 @@ class UserController extends Controller
     public function index()
     {
         $id = Auth::user()->id;
-        $user = User::find($id);
-        return view('index', compact('user'));
+        $data = User::find($id);
+        // ddd($user->name);
+        return view('index', compact('data'));
     }
 }

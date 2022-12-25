@@ -189,43 +189,43 @@
                                             <h5>Account Details</h5>
                                         </div>
                                         <div class="card-body">
-                                            <p>Already have an account? <a href="page-login.html">Log in
-                                                    instead!</a></p>
                                             <form method="post" name="enq">
                                                 <div class="row">
-                                                    <div class="form-group col-md-6">
-                                                        <label>First Name <span class="required">*</span></label>
-                                                        <input required="" class="form-control" name="name"
-                                                            type="text" />
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label>Last Name <span class="required">*</span></label>
-                                                        <input required="" class="form-control" name="phone" />
+                                                    <div class="form-group col-md-12">
+                                                        <label>User Name <span class="required">*</span></label>
+                                                        <input class="form-control" name="username" type="text"
+                                                            value="{{ $data->username }}" />
                                                     </div>
                                                     <div class="form-group col-md-12">
-                                                        <label>Display Name <span class="required">*</span></label>
-                                                        <input required="" class="form-control" name="dname"
-                                                            type="text" />
+                                                        <label>Full Name <span class="required">*</span></label>
+                                                        <input class="form-control" type="text" name="fullname"
+                                                            value="{{ $data->name }}" />
                                                     </div>
                                                     <div class="form-group col-md-12">
-                                                        <label>Email Address <span class="required">*</span></label>
-                                                        <input required="" class="form-control" name="email"
-                                                            type="email" />
+                                                        <label>Email<span class="required">*</span></label>
+                                                        <input class="form-control" name="email" type="email"
+                                                            value="{{ $data->email }}" />
                                                     </div>
                                                     <div class="form-group col-md-12">
-                                                        <label>Current Password <span class="required">*</span></label>
-                                                        <input required="" class="form-control" name="password"
-                                                            type="password" />
+                                                        <label>Phone <span class="required">*</span></label>
+                                                        <input class="form-control" name="email" type="number"
+                                                            value="{{ $data->phone }}" />
                                                     </div>
                                                     <div class="form-group col-md-12">
-                                                        <label>New Password <span class="required">*</span></label>
-                                                        <input required="" class="form-control" name="npassword"
-                                                            type="password" />
+                                                        <label>Address <span class="required">*</span></label>
+                                                        <input class="form-control" name="address" type="text"
+                                                            value="{{ $data->address }}" />
                                                     </div>
                                                     <div class="form-group col-md-12">
-                                                        <label>Confirm Password <span class="required">*</span></label>
-                                                        <input required="" class="form-control" name="cpassword"
-                                                            type="password" />
+                                                        <label>User Photo <span class="required">*</span></label>
+                                                        <input class="form-control py-3" name="photo" type="file"
+                                                            id="image" />
+                                                    </div>
+                                                    <div class="form-group col-md-12">
+                                                        <label> <span class="required">*</span></label>
+                                                        <img id="showImage"
+                                                            src="{{ !empty($data->photo) ? url('upload/user_images/' . $data->photo) : url('upload/no_image.jpg') }}"
+                                                            alt="User" style="width: 100px; height: 100px;">
                                                     </div>
                                                     <div class="col-md-12">
                                                         <button type="submit"
@@ -244,4 +244,15 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#image").change(function(e) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#showImage').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(e.target.files['0']);
+            })
+        })
+    </script>
 @endsection
