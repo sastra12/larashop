@@ -44,7 +44,8 @@
                                             details</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="page-login.html"><i
+                                        <a class="nav-link" href="#"
+                                            onclick="document.getElementById('logout-form').submit()"><i
                                                 class="fi-rs-sign-out mr-10"></i>Logout</a>
                                     </li>
                                 </ul>
@@ -250,6 +251,9 @@
             </div>
         </div>
     </div>
+    <form action="{{ route('user.logout') }}" method="POST" id="logout-form" style="display: none">
+        @csrf
+    </form>
     <script type="text/javascript">
         $(document).ready(function() {
             $("#image").change(function(e) {
