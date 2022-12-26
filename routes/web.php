@@ -25,6 +25,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
     Route::post('/user/profile', [UserController::class, 'userupdate'])->name('userprofile.update');
     Route::post('/user/logout', [UserController::class, 'logout'])->name('user.logout');
+    Route::post('/user/updatepassword', [UserController::class, 'updatepassword'])->name('userpassword.update');
 });
 
 require __DIR__ . '/auth.php';
