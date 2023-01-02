@@ -43,10 +43,13 @@ Route::middleware(['auth', 'checkrole:admin'])->group(function () {
 
     // Manage Brand
     Route::controller(BrandController::class)->group(function () {
+        // Data Brand
         Route::get('/all/brand', 'index')->name('all.brand');
         Route::get('/all/data_brand', 'data')->name('brand.data');
 
+        // Tambah Brand
         Route::get('/add/brand', 'create')->name('add.brand');
+        Route::post('/store/brand', 'store')->name('store.brand');
     });
 });
 

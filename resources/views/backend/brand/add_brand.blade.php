@@ -22,15 +22,14 @@
                     <div class="col-lg-8">
                         <div class="card">
                             <div class="card-body">
-                                <form action="{{ route('adminprofile.update') }}" method="post"
-                                    enctype="multipart/form-data">
+                                <form action="{{ route('store.brand') }}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row mb-3">
                                         <div class="col-sm-3">
                                             <h6 class="mb-0">Brand Name</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                            <input type="text" name="name" class="form-control" value="">
+                                            <input type="text" name="brand_name" class="form-control" value="">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -38,7 +37,7 @@
                                             <h6 class="mb-0">Brand Image</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                            <input type="file" name="photo" class="form-control" id="image">
+                                            <input type="file" name="brand_image" class="form-control" id="image">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -46,9 +45,8 @@
                                             <h6 class="mb-0"></h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                            <img id="showImage"
-                                                src="{{ !empty($data->photo) ? url('upload/admin_images/' . $data->photo) : url('upload/no_image.jpg') }}"
-                                                alt="Admin" style="width: 100px; height: 100px;">
+                                            <img id="showImage" src="{{ url('upload/no_image.jpg') }}" alt="Admin"
+                                                style="width: 100px; height: 100px;">
                                         </div>
                                     </div>
                                     <div class="row">

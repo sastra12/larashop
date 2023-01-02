@@ -5,6 +5,7 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use Illuminate\Http\Request;
+use Image;
 use Yajra\DataTables\DataTables;
 
 class BrandController extends Controller
@@ -25,13 +26,16 @@ class BrandController extends Controller
         return Datatables::of($listdata)
             // for number
             ->addIndexColumn()
-            ->addColumn('action', function ($data) {
+            ->addColumn('action', function ($listdata) {
                 return '
                <button  class="btn btn-xs btn-info btn-sm">Edit</button>
                <button  class="btn btn-xs btn-danger btn-sm">Delete</button>
            ';
             })
-            ->rawColumns(['action'])
+            ->addColumn('brand_image', function ($listdata) {
+                return '<img src=' . asset('upload/brand/' . $listdata->brand_image)  . ' width="70px" heigh="40px"/>';
+            })
+            ->rawColumns(['action', 'brand_image'])
             ->make(true);
     }
 
@@ -53,7 +57,26 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->hasFile('brand_image')) {
+            $file = $request->file('brand_image');
+            $filename = date('YmdHi') . '-' . $file->getClientOriginalName();
+            Image::make($file)->resize(300, 300)->save('upload/brand/' . $filename);
+            $url = 'upload/brand/' . $filename;
+
+            Brand::insert([
+                'brand_name' => $request->brand_name,
+                'brand_slug' => strtolower(str_replace(' ', '-', $request->brand_name)),
+                // 'brand_image' => $url,
+                'brand_image' => $filename,
+            ]);
+
+            $notification = array(
+                'message' => 'Brand Inserted Successfully',
+                'alert-type' => 'success'
+            );
+
+            return redirect()->route('all.brand')->with($notification);
+        }
     }
 
     /**

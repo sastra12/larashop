@@ -37,18 +37,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr role="row" class="odd">
-                                            <td>1</td>
-                                            <td class="sorting_1">Airi Satou</td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
-                                        </tr>
-                                        <tr role="row" class="even">
-                                            <td>2</td>
-                                            <td class="sorting_1">Angelica Ramos</td>
-                                            <td>Chief Executive Officer (CEO)</td>
-                                            <td>London</td>
-                                        </tr>
+
                                     </tbody>
                                     <tfoot>
                                         <tr>
@@ -102,7 +91,7 @@
                     },
                     {
                         data: 'brand_image',
-                        name: 'brand_iamge',
+                        name: 'brand_image',
                     },
                     {
                         data: 'action',
