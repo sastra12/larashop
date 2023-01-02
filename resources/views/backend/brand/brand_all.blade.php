@@ -8,7 +8,7 @@
         <!--end breadcrumb-->
         <div class="d-flex justify-content-between">
             <h6 class="text-uppercase">All Brand</h6>
-            <button type="button" class="btn btn-primary btn-sm">Add Brand</button>
+            <a href="{{ route('add.brand') }}" class="btn btn-primary btn-sm">Add Brand</a>
         </div>
         <hr>
         <div class="card">

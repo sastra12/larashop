@@ -45,6 +45,8 @@ Route::middleware(['auth', 'checkrole:admin'])->group(function () {
     Route::controller(BrandController::class)->group(function () {
         Route::get('/all/brand', 'index')->name('all.brand');
         Route::get('/all/data_brand', 'data')->name('brand.data');
+
+        Route::get('/add/brand', 'create')->name('add.brand');
     });
 });
 
