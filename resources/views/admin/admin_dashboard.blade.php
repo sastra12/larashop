@@ -26,6 +26,10 @@
     <link rel="stylesheet" href="{{ asset('adminbackend/assets/css/header-colors.css') }}" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
+    {{-- Datatables --}}
+    <link href="{{ asset('adminbackend/assets/plugins/datatable/css/dataTables.bootstrap5.min.css') }}"
+        rel="stylesheet" />
+
     {{-- Toastr --}}
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
     <title>Admin Dashboard</title>
@@ -198,6 +202,7 @@
             }
         @endif
     </script>
+    @stack('scripts')
 </body>
 
 </html>

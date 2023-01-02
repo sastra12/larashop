@@ -2,8 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\backend\BrandController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VendorController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,6 +40,12 @@ Route::middleware(['auth', 'checkrole:admin'])->group(function () {
     Route::get('/admin/updatepassword', [AdminController::class, 'changepassword'])->name('change.password');
     Route::post('/admin/updatepassword', [AdminController::class, 'updatepassword'])->name('update.password');
     Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
+
+    // Manage Brand
+    Route::controller(BrandController::class)->group(function () {
+        Route::get('/all/brand', 'index')->name('all.brand');
+        Route::get('/all/data_brand', 'data')->name('brand.data');
+    });
 });
 
 Route::middleware(['auth', 'checkrole:vendor'])->group(function () {
