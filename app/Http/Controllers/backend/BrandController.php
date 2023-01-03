@@ -28,8 +28,8 @@ class BrandController extends Controller
             ->addIndexColumn()
             ->addColumn('action', function ($listdata) {
                 return '
-               <button  class="btn btn-xs btn-info btn-sm">Edit</button>
-               <button  class="btn btn-xs btn-danger btn-sm">Delete</button>
+               <a href=' . route('show.brand', $listdata->brand_slug) . '  class="btn btn-xs btn-info btn-sm">Edit</a>
+               <a href=""  class="btn btn-xs btn-danger btn-sm">Delete</a>
            ';
             })
             ->addColumn('brand_image', function ($listdata) {
@@ -90,7 +90,7 @@ class BrandController extends Controller
      */
     public function show(Brand $brand)
     {
-        //
+        return view('backend.brand.brand_edit', compact('brand'));
     }
 
     /**

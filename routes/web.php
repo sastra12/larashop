@@ -50,6 +50,9 @@ Route::middleware(['auth', 'checkrole:admin'])->group(function () {
         // Tambah Brand
         Route::get('/add/brand', 'create')->name('add.brand');
         Route::post('/store/brand', 'store')->name('store.brand');
+
+        // Detail brand
+        Route::get('/show/{brand:brand_slug}', 'show')->name('show.brand');
     });
 });
 
