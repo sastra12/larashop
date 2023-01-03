@@ -57,16 +57,19 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'brand_name' => 'required',
+            'brand_image' => 'required|image|mimes:png,jpg,svg'
+        ]);
+
         if ($request->hasFile('brand_image')) {
             $file = $request->file('brand_image');
             $filename = date('YmdHi') . '-' . $file->getClientOriginalName();
             Image::make($file)->resize(300, 300)->save('upload/brand/' . $filename);
-            $url = 'upload/brand/' . $filename;
 
             Brand::insert([
                 'brand_name' => $request->brand_name,
                 'brand_slug' => strtolower(str_replace(' ', '-', $request->brand_name)),
-                // 'brand_image' => $url,
                 'brand_image' => $filename,
             ]);
 

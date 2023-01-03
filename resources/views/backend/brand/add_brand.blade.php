@@ -29,7 +29,12 @@
                                             <h6 class="mb-0">Brand Name</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                            <input type="text" name="brand_name" class="form-control" value="">
+                                            <input type="text" name="brand_name"
+                                                class="form-control @error('brand_name') is-invalid @enderror"
+                                                value="{{ old('brand_name') }}">
+                                            @error('brand_name')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -37,7 +42,12 @@
                                             <h6 class="mb-0">Brand Image</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                            <input type="file" name="brand_image" class="form-control" id="image">
+                                            <input type="file" name="brand_image"
+                                                class="form-control @error('brand_image') is-invalid @enderror"
+                                                id="image">
+                                            @error('brand_image')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="row mb-3">
