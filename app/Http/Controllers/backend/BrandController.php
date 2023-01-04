@@ -7,6 +7,7 @@ use App\Models\Brand;
 use Illuminate\Http\Request;
 use Image;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\File;
 
 class BrandController extends Controller
 {
@@ -113,7 +114,42 @@ class BrandController extends Controller
      */
     public function update(Request $request, Brand $brand)
     {
-        //
+        $request->validate([
+            'brand_name' => 'required',
+            'brand_image' => 'image|mimes:png,jpg,svg'
+        ]);
+
+        $old_image = $request->old_image;
+        if ($request->hasFile('brand_image')) {
+            File::delete(public_path('upload/brand/' . $old_image));
+            $file = $request->file('brand_image');
+            $filename = date('YmdHi') . '-' . $file->getClientOriginalName();
+            Image::make($file)->resize(300, 300)->save('upload/brand/' . $filename);
+            Brand::where('brand_slug', $brand->brand_slug)
+                ->update([
+                    'brand_name' => $request->brand_name,
+                    'brand_slug' => strtolower(str_replace(' ', '-', $request->brand_name)),
+                    'brand_image' => $filename,
+                ]);
+            $notification = array(
+                'message' => 'Brand Updated With Image Successfully',
+                'alert-type' => 'success'
+            );
+
+            return redirect()->route('all.brand')->with($notification);
+        } else {
+            Brand::where('brand_slug', $brand->brand_slug)
+                ->update([
+                    'brand_name' => $request->brand_name,
+                    'brand_slug' => strtolower(str_replace(' ', '-', $request->brand_name)),
+                ]);
+            $notification = array(
+                'message' => 'Brand Updated Without Image Successfully',
+                'alert-type' => 'success'
+            );
+
+            return redirect()->route('all.brand')->with($notification);
+        }
     }
 
     /**

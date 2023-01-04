@@ -53,6 +53,8 @@ Route::middleware(['auth', 'checkrole:admin'])->group(function () {
 
         // Detail brand
         Route::get('/show/{brand:brand_slug}', 'show')->name('show.brand');
+        // Update brand
+        Route::post('/update/{brand:brand_slug}', 'update')->name('update.brand');
     });
 });
 

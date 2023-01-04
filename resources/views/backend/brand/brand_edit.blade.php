@@ -22,8 +22,11 @@
                     <div class="col-lg-8">
                         <div class="card">
                             <div class="card-body">
-                                <form action="{{ route('store.brand') }}" method="post" enctype="multipart/form-data">
+                                <form action="{{ route('update.brand', $brand->brand_slug) }}" method="post"
+                                    enctype="multipart/form-data">
                                     @csrf
+                                    <input type="hidden" name="old_image" value="{{ $brand->brand_image }}">
+                                    <input type="hidden" name="id" value="{{ $brand->id }}">
                                     <div class="row mb-3">
                                         <div class="col-sm-3">
                                             <h6 class="mb-0">Brand Name</h6>
