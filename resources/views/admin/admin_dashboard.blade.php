@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="{{ asset('adminbackend/assets/css/semi-dark.css') }}" />
     <link rel="stylesheet" href="{{ asset('adminbackend/assets/css/header-colors.css') }}" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     {{-- Datatables --}}
     <link href="{{ asset('adminbackend/assets/plugins/datatable/css/dataTables.bootstrap5.min.css') }}"
@@ -170,6 +171,7 @@
     <script src="{{ asset('adminbackend/assets/plugins/sparkline-charts/jquery.sparkline.min.js') }}"></script>
     <script src="{{ asset('adminbackend/assets/plugins/jquery-knob/excanvas.js') }}"></script>
     <script src="{{ asset('adminbackend/assets/plugins/jquery-knob/jquery.knob.js') }}"></script>
+    <script src="{{ asset('adminbackend/assets/js/sweetalert.min.js') }}"></script>
     <script>
         $(function() {
             $(".knob").knob();

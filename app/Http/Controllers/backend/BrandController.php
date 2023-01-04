@@ -30,7 +30,7 @@ class BrandController extends Controller
             ->addColumn('action', function ($listdata) {
                 return '
                <a href=' . route('show.brand', $listdata->brand_slug) . '  class="btn btn-xs btn-info btn-sm">Edit</a>
-               <a href=""  class="btn btn-xs btn-danger btn-sm">Delete</a>
+               <button onclick="deleteData(`' . route('destroy.brand', $listdata->brand_slug) . '`)" class="btn btn-sm btn-danger">Delete</button>
            ';
             })
             ->addColumn('brand_image', function ($listdata) {
@@ -160,6 +160,7 @@ class BrandController extends Controller
      */
     public function destroy(Brand $brand)
     {
-        //
+        $brand = Brand::where('brand_slug', $brand->brand_slug);
+        $brand->delete();
     }
 }

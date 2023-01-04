@@ -55,6 +55,8 @@ Route::middleware(['auth', 'checkrole:admin'])->group(function () {
         Route::get('/show/{brand:brand_slug}', 'show')->name('show.brand');
         // Update brand
         Route::post('/update/{brand:brand_slug}', 'update')->name('update.brand');
+        // Delete brand
+        Route::delete('/delete/{brand:brand_slug}', 'destroy')->name('destroy.brand');
     });
 });
 
