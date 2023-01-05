@@ -131,24 +131,16 @@ class BrandController extends Controller
                     'brand_slug' => strtolower(str_replace(' ', '-', $request->brand_name)),
                     'brand_image' => $filename,
                 ]);
-            $notification = array(
-                'message' => 'Brand Updated With Image Successfully',
-                'alert-type' => 'success'
-            );
 
-            return redirect()->route('all.brand')->with($notification);
+            return redirect()->route('all.brand')->with(notification('Brand Updated With Image Successfully', 'success'));
         } else {
             Brand::where('brand_slug', $brand->brand_slug)
                 ->update([
                     'brand_name' => $request->brand_name,
                     'brand_slug' => strtolower(str_replace(' ', '-', $request->brand_name)),
                 ]);
-            $notification = array(
-                'message' => 'Brand Updated Without Image Successfully',
-                'alert-type' => 'success'
-            );
 
-            return redirect()->route('all.brand')->with($notification);
+            return redirect()->route('all.brand')->with(notification('Brand Updated Without Image Successfully', 'success'));
         }
     }
 
@@ -160,6 +152,10 @@ class BrandController extends Controller
      */
     public function destroy(Brand $brand)
     {
+        $image = public_path('upload/brand/' . $brand->brand_image);
+        if (file_exists($image)) {
+            unlink($image);
+        }
         $brand = Brand::where('brand_slug', $brand->brand_slug);
         $brand->delete();
     }
