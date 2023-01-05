@@ -74,12 +74,7 @@ class BrandController extends Controller
                 'brand_image' => $filename,
             ]);
 
-            $notification = array(
-                'message' => 'Brand Inserted Successfully',
-                'alert-type' => 'success'
-            );
-
-            return redirect()->route('all.brand')->with($notification);
+            return redirect()->route('all.brand')->with(notification('Brand Inserted Successfully', 'success'));
         }
     }
 

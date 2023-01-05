@@ -45,11 +45,7 @@ class AdminController extends Controller
             $data['photo'] = $filename;
         }
         $data->save();
-        $notification = [
-            'message' => 'Admin Profile Updated Successfully',
-            'alert-type' => 'success'
-        ];
-        return redirect()->back()->with($notification);
+        return redirect()->back()->with(notification('Admin Profile Updated Successfully', 'success'));
     }
 
     public function changepassword()

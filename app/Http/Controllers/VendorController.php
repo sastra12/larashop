@@ -54,11 +54,7 @@ class VendorController extends Controller
             $data['photo'] = $filename;
         }
         $data->save();
-        $notification = [
-            'message' => 'Vendor Profile Updated Successfully',
-            'alert-type' => 'success'
-        ];
-        return redirect()->back()->with($notification);
+        return redirect()->back()->with(notification('Vendor Profile Updated Successfully', 'success'));
     }
 
     public function changepassword()

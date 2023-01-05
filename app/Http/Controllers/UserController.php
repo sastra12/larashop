@@ -37,11 +37,7 @@ class UserController extends Controller
             $data['photo'] = $filename;
         }
         $data->save();
-        $notification = [
-            'message' => 'User Profile Updated Successfully',
-            'alert-type' => 'success'
-        ];
-        return redirect()->back()->with($notification);
+        return redirect()->back()->with(notification('User Profile Updated Successfully', 'success'));
     }
 
     public function updatepassword(Request $request)
@@ -64,17 +60,12 @@ class UserController extends Controller
 
     public function logout(Request $request)
     {
-        $notification = [
-            'message' => 'Logout Successfully',
-            'alert-type' => 'success'
-        ];
-
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
 
-        return redirect()->route('login')->with($notification);
+        return redirect()->route('login')->with(notification('Logout Successfully', 'success'));
     }
 }
