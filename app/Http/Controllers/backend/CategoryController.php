@@ -29,8 +29,8 @@ class CategoryController extends Controller
             ->addIndexColumn()
             ->addColumn('action', function ($listdata) {
                 return '
-               <a href=' . route('category.edit', $listdata->category_slug) . '  class="btn btn-xs btn-info btn-sm">Edit</a>
-               <button onclick="deleteData(`' . route('destroy.brand', $listdata->category_slug) . '`)" class="btn btn-sm btn-danger">Delete</button>
+               <a href=' . route('category.editdata', $listdata->category_slug) . '  class="btn btn-xs btn-info btn-sm">Edit</a>
+               <button onclick="deleteData(`' . route('category.delete', $listdata->category_slug) . '`)" class="btn btn-sm btn-danger">Delete</button>
            ';
             })
             ->addColumn('category_image', function ($listdata) {
@@ -66,7 +66,7 @@ class CategoryController extends Controller
         if ($request->hasFile('category_image')) {
             $file = $request->file('category_image');
             $filename = date('YmdHi') . '-' . $file->getClientOriginalName();
-            Image::make($file)->resize(300, 300)->save('upload/category/' . $filename);
+            Image::make($file)->resize(120, 120)->save('upload/category/' . $filename);
 
             Category::insert([
                 'category_name' => $request->category_name,
@@ -97,7 +97,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('backend.category.category_edit', compact('category'));
     }
 
     /**
@@ -109,7 +109,34 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $request->validate([
+            'category_name' => 'required',
+            'category_image' => 'image|mimes:png,jpg,svg'
+        ]);
+
+        $old_image = $request->old_image;
+        if ($request->hasFile('category_image')) {
+            File::delete(public_path('upload/category/' . $old_image));
+            $file = $request->file('category_image');
+            $filename = date('YmdHi') . '-' . $file->getClientOriginalName();
+            Image::make($file)->resize(120, 120)->save('upload/category/' . $filename);
+            Category::where('category_slug', $category->category_slug)
+                ->update([
+                    'category_name' => $request->category_name,
+                    'category_slug' => strtolower(str_replace(' ', '-', $request->category_name)),
+                    'category_image' => $filename,
+                ]);
+
+            return redirect()->route('category.index')->with(notification('Category Updated With Image Successfully', 'success'));
+        } else {
+            Category::where('category_slug', $category->category_slug)
+                ->update([
+                    'category_name' => $request->category_name,
+                    'category_slug' => strtolower(str_replace(' ', '-', $request->category_name)),
+                ]);
+
+            return redirect()->route('category.index')->with(notification('Category Updated Without Image Successfully', 'success'));
+        }
     }
 
     /**
@@ -120,6 +147,11 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $image = public_path('upload/category/' . $category->category_image);
+        if (file_exists($image)) {
+            unlink($image);
+        }
+        $category = Category::where('category_slug', $category->category_slug);
+        $category->delete();
     }
 }

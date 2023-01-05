@@ -62,7 +62,10 @@ Route::middleware(['auth', 'checkrole:admin'])->group(function () {
 
     // Manage Category
     Route::get('/all/data_category', [CategoryController::class, 'data'])->name('category.data');
-    Route::resource('category', CategoryController::class);
+    Route::get('/category/{category:category_slug}/edit', [CategoryController::class, 'edit'])->name('category.editdata');
+    Route::put('/category/{category:category_slug}', [CategoryController::class, 'update'])->name('category.updated');
+    Route::resource('category', CategoryController::class)->except(['destroy', 'edit', 'update']);
+    Route::delete('/category/{category:category_slug}', [CategoryController::class, 'destroy'])->name('category.delete');
 });
 
 Route::middleware(['auth', 'checkrole:vendor'])->group(function () {
