@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\backend\BrandController;
+use App\Http\Controllers\backend\CategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VendorController;
 
@@ -58,6 +59,10 @@ Route::middleware(['auth', 'checkrole:admin'])->group(function () {
         // Delete brand
         Route::delete('/delete/{brand:brand_slug}', 'destroy')->name('destroy.brand');
     });
+
+    // Manage Category
+    Route::get('/all/data_category', [CategoryController::class, 'data'])->name('category.data');
+    Route::resource('category', CategoryController::class);
 });
 
 Route::middleware(['auth', 'checkrole:vendor'])->group(function () {

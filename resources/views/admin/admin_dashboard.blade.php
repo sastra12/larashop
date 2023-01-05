@@ -172,6 +172,7 @@
     <script src="{{ asset('adminbackend/assets/plugins/jquery-knob/excanvas.js') }}"></script>
     <script src="{{ asset('adminbackend/assets/plugins/jquery-knob/jquery.knob.js') }}"></script>
     <script src="{{ asset('adminbackend/assets/js/sweetalert.min.js') }}"></script>
+    <script src="{{ asset('adminbackend/assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
     <script>
         $(function() {
             $(".knob").knob();

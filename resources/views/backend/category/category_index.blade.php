@@ -7,8 +7,8 @@
         </div>
         <!--end breadcrumb-->
         <div class="d-flex justify-content-between">
-            <h6 class="text-uppercase">All Brand</h6>
-            <a href="{{ route('add.brand') }}" class="btn btn-primary btn-sm">Add Brand</a>
+            <h6 class="text-uppercase">All Category</h6>
+            <a href="{{ route('category.create') }}" class="btn btn-primary btn-sm">Add Category</a>
         </div>
         <hr>
         <div class="card">
@@ -27,10 +27,10 @@
                                                 No</th>
                                             <th class="sorting" tabindex="0" aria-controls="example" rowspan="1"
                                                 colspan="1" aria-label="Position: activate to sort column ascending"
-                                                style="width: 170px;">Brand Name</th>
+                                                style="width: 170px;">Category Name</th>
                                             <th class="sorting" tabindex="0" aria-controls="example" rowspan="1"
                                                 colspan="1" aria-label="Office: activate to sort column ascending"
-                                                style="width: 73px;">Brand Image</th>
+                                                style="width: 73px;">Category Image</th>
                                             <th class="sorting" tabindex="0" aria-controls="example" rowspan="1"
                                                 colspan="1" aria-label="Age: activate to sort column ascending"
                                                 style="width: 27px;">Action</th>
@@ -42,8 +42,8 @@
                                     <tfoot>
                                         <tr>
                                             <th rowspan="1" colspan="1">No</th>
-                                            <th rowspan="1" colspan="1">Brand Name</th>
-                                            <th rowspan="1" colspan="1">Brand Image</th>
+                                            <th rowspan="1" colspan="1">Category Name</th>
+                                            <th rowspan="1" colspan="1">Category Image</th>
                                             <th rowspan="1" colspan="1">Action</th>
                                         </tr>
                                     </tfoot>
@@ -60,56 +60,18 @@
 @push('scripts')
     <script>
         let table;
-        // Server Side
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
 
-        function deleteData(url) {
-            swal({
-                    title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this data!",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        $.ajax({
-                                url: url,
-                                method: 'DELETE',
-                            })
-                            .done((response) => {
-                                swal("Success data has been deleted!", {
-                                    icon: "success",
-                                });
-                                table.ajax.reload();
-                            })
-                            .fail((errors) => {
-                                swal("Failed deleted data!", {
-                                    icon: "warning",
-                                });
-                                return;
-                            });
-
-                    } else {
-                        swal("Data is safe!");
-                    }
-                });
-        }
-
-
         $(document).ready(function() {
-            // Client Side
-            // $('#example').DataTable();
-
             table = $('#example').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('brand.data') }}",
+                    url: "{{ route('category.data') }}",
                     type: 'GET'
                 },
                 columns: [{
@@ -119,12 +81,12 @@
                         sortable: false
                     },
                     {
-                        data: 'brand_name',
-                        name: 'brand_name',
+                        data: 'category_name',
+                        name: 'category_name',
                     },
                     {
-                        data: 'brand_image',
-                        name: 'brand_image',
+                        data: 'category_image',
+                        name: 'category_image',
                     },
                     {
                         data: 'action',

@@ -4,13 +4,13 @@
     <div class="page-content">
         <!--breadcrumb-->
         <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-            <div class="breadcrumb-title pe-3">Create Brand</div>
+            <div class="breadcrumb-title pe-3">Create Category</div>
             <div class="ps-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0 p-0">
                         <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Create Brand</li>
+                        <li class="breadcrumb-item active" aria-current="page">Create Category</li>
                     </ol>
                 </nav>
             </div>
@@ -22,30 +22,30 @@
                     <div class="col-lg-8">
                         <div class="card">
                             <div class="card-body">
-                                <form action="{{ route('store.brand') }}" method="post" enctype="multipart/form-data">
+                                <form action="{{ route('category.store') }}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row mb-3">
                                         <div class="col-sm-3">
-                                            <h6 class="mb-0">Brand Name</h6>
+                                            <h6 class="mb-0">Category Name</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                            <input type="text" name="brand_name"
-                                                class="form-control @error('brand_name') is-invalid @enderror"
-                                                value="{{ old('brand_name') }}">
-                                            @error('brand_name')
+                                            <input type="text" name="category_name"
+                                                class="form-control @error('category_name') is-invalid @enderror"
+                                                value="{{ old('category_name') }}">
+                                            @error('category_name')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-sm-3">
-                                            <h6 class="mb-0">Brand Image</h6>
+                                            <h6 class="mb-0">Category Image</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                            <input type="file" name="brand_image"
-                                                class="form-control @error('brand_image') is-invalid @enderror"
+                                            <input type="file" name="category_image"
+                                                class="form-control @error('category_image') is-invalid @enderror"
                                                 id="image">
-                                            @error('brand_image')
+                                            @error('category_image')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
