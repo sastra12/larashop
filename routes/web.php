@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\backend\BrandController;
 use App\Http\Controllers\backend\CategoryController;
+use App\Http\Controllers\backend\SubCategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VendorController;
 
@@ -66,6 +67,14 @@ Route::middleware(['auth', 'checkrole:admin'])->group(function () {
     Route::put('/category/{category:category_slug}', [CategoryController::class, 'update'])->name('category.updated');
     Route::resource('category', CategoryController::class)->except(['destroy', 'edit', 'update']);
     Route::delete('/category/{category:category_slug}', [CategoryController::class, 'destroy'])->name('category.delete');
+
+
+    // Manage SubCategory
+    Route::get('/all/data_subcategory', [SubCategoryController::class, 'data'])->name('subcategory.data');
+    Route::get('/subcategory/{subcategory:category_slug}/edit', [SUbCategoryController::class, 'edit'])->name('subcategory.editdata');
+    Route::put('/subcategory/{subcategory:category_slug}', [SubCategoryController::class, 'update'])->name('subcategory.updated');
+    Route::resource('subcategory', SubCategoryController::class)->except(['destroy', 'edit', 'update']);
+    Route::delete('/subcategory/{subcategory:category_slug}', [CategoryController::class, 'destroy'])->name('subcategory.delete');
 });
 
 Route::middleware(['auth', 'checkrole:vendor'])->group(function () {

@@ -46,6 +46,20 @@
         </li>
         <li>
             <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class='bx bx-cookie'></i>
+                </div>
+                <div class="menu-title">SubCategory</div>
+            </a>
+            <ul>
+                <li> <a href="{{ route('subcategory.index') }}"><i class="bx bx-right-arrow-alt"></i>All SubCategory</a>
+                </li>
+                <li> <a href="{{ route('subcategory.create') }}"><i class="bx bx-right-arrow-alt"></i>Add
+                        SubCategory</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><i class="bx bx-category"></i>
                 </div>
                 <div class="menu-title">Application</div>
