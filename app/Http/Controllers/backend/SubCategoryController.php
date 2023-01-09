@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\SubCategory;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Image;
 use Yajra\DataTables\DataTables;
 
 class SubCategoryController extends Controller
@@ -74,7 +73,7 @@ class SubCategoryController extends Controller
             'subcategory_slug' => strtolower(str_replace(' ', '-', $request->subcategory_name)),
         ]);
 
-        return redirect()->route('category.index')->with(notification('SubCategory Inserted Successfully', 'success'));
+        return redirect()->route('subcategory.index')->with(notification('SubCategory Inserted Successfully', 'success'));
     }
 
     /**
@@ -83,7 +82,7 @@ class SubCategoryController extends Controller
      * @param  \App\Models\SubCategory  $subCategory
      * @return \Illuminate\Http\Response
      */
-    public function show(SubCategory $subCategory)
+    public function show(SubCategory $subcategory)
     {
         //
     }
@@ -94,9 +93,11 @@ class SubCategoryController extends Controller
      * @param  \App\Models\SubCategory  $subCategory
      * @return \Illuminate\Http\Response
      */
-    public function edit(SubCategory $subCategory)
+    public function edit(SubCategory $subcategory)
     {
-        //
+        $data = SubCategory::where('subcategory_slug', $subcategory->subcategory_slug)->first();
+        $categories = Category::orderBy('category_name', 'ASC')->get();
+        return view('backend.subcategory.subcategory_edit', compact('categories', 'data'));
     }
 
     /**
@@ -106,9 +107,21 @@ class SubCategoryController extends Controller
      * @param  \App\Models\SubCategory  $subCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SubCategory $subCategory)
+    public function update(Request $request, SubCategory $subcategory)
     {
-        //
+        $request->validate([
+            'category_id' => 'required|not_in:0',
+            'subcategory_name' => 'required'
+        ]);
+
+        SubCategory::where('subcategory_slug', $subcategory->subcategory_slug)
+            ->update([
+                'category_id' => $request->category_id,
+                'subcategory_name' => $request->subcategory_name,
+                'subcategory_slug' => strtolower(str_replace(' ', '-', $request->subcategory_name)),
+            ]);
+
+        return redirect()->route('subcategory.index')->with(notification('SubCategory Updated Successfully', 'success'));
     }
 
     /**
@@ -117,8 +130,9 @@ class SubCategoryController extends Controller
      * @param  \App\Models\SubCategory  $subCategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SubCategory $subCategory)
+    public function destroy(SubCategory $subcategory)
     {
-        //
+        $category = SubCategory::where('subcategory_slug', $subcategory->subcategory_slug);
+        $category->delete();
     }
 }

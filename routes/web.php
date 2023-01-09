@@ -71,10 +71,10 @@ Route::middleware(['auth', 'checkrole:admin'])->group(function () {
 
     // Manage SubCategory
     Route::get('/all/data_subcategory', [SubCategoryController::class, 'data'])->name('subcategory.data');
-    Route::get('/subcategory/{subcategory:category_slug}/edit', [SUbCategoryController::class, 'edit'])->name('subcategory.editdata');
-    Route::put('/subcategory/{subcategory:category_slug}', [SubCategoryController::class, 'update'])->name('subcategory.updated');
+    Route::get('/subcategory/{subcategory:subcategory_slug}/edit', [SUbCategoryController::class, 'edit'])->name('subcategory.editdata');
+    Route::put('/subcategory/{subcategory:subcategory_slug}', [SubCategoryController::class, 'update'])->name('subcategory.updated');
     Route::resource('subcategory', SubCategoryController::class)->except(['destroy', 'edit', 'update']);
-    Route::delete('/subcategory/{subcategory:category_slug}', [CategoryController::class, 'destroy'])->name('subcategory.delete');
+    Route::delete('/subcategory/{subcategory:subcategory_slug}', [SubCategoryController::class, 'destroy'])->name('subcategory.delete');
 });
 
 Route::middleware(['auth', 'checkrole:vendor'])->group(function () {

@@ -97,6 +97,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
+        $categories = Category::orderBy('category_name', 'ASC')->get();
         return view('backend.category.category_edit', compact('category'));
     }
 
